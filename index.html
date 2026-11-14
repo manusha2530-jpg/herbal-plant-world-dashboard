@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herbal Plant World | Nature's Wisdom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+ --green:#173d2b;--green2:#24583c;--mint:#e8f1e8;--cream:#f7f7f1;
+ --gold:#c5a45b;--ink:#24332a;--muted:#829087;--white:#fff;
+ --line:#e7ebe4;--shadow:0 12px 35px rgba(27,55,37,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink)}
+button,input{font:inherit}
+button{cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:255px;background:var(--green);color:white;padding:28px 19px;position:fixed;inset:0 auto 0 0;z-index:20;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 10px 34px}
+.brand-icon{width:43px;height:43px;border-radius:14px;background:#dce9d7;color:var(--green);display:grid;place-items:center;font-size:25px}
+.brand h2{font-family:'Playfair Display';font-size:19px;line-height:1.15}
+.brand small{color:#b8cbb9;font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.nav-label{font-size:10px;letter-spacing:2px;color:#91aa98;margin:18px 12px 10px}
+.nav button{width:100%;border:0;background:transparent;color:#d1dfd3;padding:13px 14px;border-radius:10px;text-align:left;display:flex;align-items:center;gap:13px;font-size:13px;margin:3px 0;transition:.2s}
+.nav button:hover,.nav button.active{background:#ffffff19;color:white}
+.nav button.active{box-shadow:inset 3px 0 var(--gold)}
+.nav-icon{width:20px;text-align:center;font-size:17px}
+.sidebar-bottom{margin-top:auto;border-top:1px solid #ffffff20;padding:20px 10px 5px;color:#b8cbb9;font-size:11px;line-height:1.7}
+.sidebar-bottom strong{display:block;color:white;font-size:13px;margin-bottom:4px}
+.main{margin-left:255px;width:calc(100% - 255px);padding:30px 38px 45px;max-width:1700px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:15px}
+.eyebrow{color:#829087;text-transform:uppercase;letter-spacing:2px;font-size:10px;font-weight:700}
+h1{font-family:'Playfair Display';font-size:32px;color:var(--green);margin-top:5px}
+.top-right{display:flex;align-items:center;gap:12px}
+.date-pill{background:white;border:1px solid var(--line);border-radius:30px;padding:10px 15px;font-size:12px;color:#647267}
+.avatar{height:40px;width:40px;border-radius:50%;display:grid;place-items:center;background:#dce9d7;color:var(--green);font-weight:800}
+.hero{background:linear-gradient(105deg,#183d2b 0%,#285b3d 65%,#527c50 100%);border-radius:20px;padding:34px 38px;color:white;position:relative;overflow:hidden;min-height:205px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow)}
+.hero:after{content:"✿";position:absolute;right:9%;top:-72px;font-size:280px;color:#ffffff0b;transform:rotate(-18deg)}
+.hero-copy{position:relative;z-index:1;max-width:560px}
+.hero .tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#d9c58d;font-weight:700}
+.hero h2{font-family:'Playfair Display';font-size:32px;line-height:1.2;margin:12px 0}
+.hero p{font-size:13px;color:#d3e0d4;line-height:1.7;max-width:490px}
+.hero button{margin-top:18px;background:#e6d5a5;border:0;color:#24402e;border-radius:8px;padding:11px 17px;font-size:12px;font-weight:800}
+.hero-art{font-size:105px;position:relative;z-index:1;margin-right:5%;filter:drop-shadow(0 12px 10px #102b1c66)}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin:30px 0 15px;gap:12px}
+.section-head h2{font-family:'Playfair Display';font-size:21px;color:var(--green)}
+.section-head p{font-size:11px;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:20px}
+.stat{background:white;border:1px solid var(--line);border-radius:14px;padding:19px;box-shadow:var(--shadow)}
+.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px}
+.stat-icon{width:34px;height:34px;background:var(--mint);border-radius:10px;display:grid;place-items:center;font-size:17px}
+.stat strong{display:block;font-size:27px;color:var(--green);margin:12px 0 2px}
+.stat small{font-size:10px;color:#8a968d}
+.toolbar{display:flex;align-items:center;gap:12px;margin:16px 0;flex-wrap:wrap}
+.search{position:relative;flex:1;min-width:220px}
+.search span{position:absolute;left:14px;top:11px;color:#849087}
+.search input{width:100%;border:1px solid var(--line);background:white;padding:12px 14px 12px 40px;border-radius:10px;outline:none;font-size:12px}
+.search input:focus{border-color:#6c9273;box-shadow:0 0 0 3px #6c92731c}
+.filter{border:1px solid var(--line);background:white;color:#66736a;padding:10px 14px;border-radius:9px;font-size:11px}
+.filter.active{background:var(--green);color:white;border-color:var(--green)}
+.plant-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.plant-card{background:white;border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.25s;box-shadow:0 5px 18px #183d2b08}
+.plant-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.plant-photo{height:145px;position:relative;background:linear-gradient(135deg,#dce9d7,#9ebc9c);overflow:hidden}
+.plant-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
+.plant-card:hover .plant-photo img{transform:scale(1.05)}
+.plant-photo .plant-symbol{position:absolute;inset:0;display:grid;place-items:center;font-size:54px;background:linear-gradient(135deg,#dce9d7,#9ebc9c)}
+.plant-photo img{position:relative;z-index:1}
+.plant-photo img.bad{display:none}
+.plant-category{position:absolute;z-index:2;left:12px;top:12px;background:#ffffffeb;color:var(--green);padding:6px 9px;border-radius:20px;font-size:9px;font-weight:800}
+.fav{position:absolute;z-index:3;right:11px;top:10px;width:30px;height:30px;border:0;border-radius:50%;background:#ffffffeb;color:#617064;font-size:17px}
+.fav.saved{color:#c45a52}
+.plant-info{padding:15px}
+.plant-info h3{font-family:'Playfair Display';font-size:18px;color:var(--green)}
+.telugu{font-size:11px;color:#7a8b7e;margin:4px 0}
+.latin{font-size:10px;color:#9ba49d;font-style:italic}
+.plant-desc{font-size:11px;color:#69766d;line-height:1.6;margin:11px 0 14px;min-height:35px}
+.card-bottom{border-top:1px solid var(--line);padding-top:11px;display:flex;justify-content:space-between;align-items:center}
+.card-bottom span{font-size:10px;color:#879389}
+.card-bottom button{border:0;background:transparent;color:var(--green2);font-size:11px;font-weight:800}
+.empty{grid-column:1/-1;text-align:center;background:white;border:1px dashed #cad6c9;padding:45px 20px;border-radius:15px;color:#78867c}
+.empty div{font-size:36px;margin-bottom:10px}
+.panel-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:17px;margin-top:24px}
+.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:20px}
+.panel h3{font-family:'Playfair Display';font-size:17px;color:var(--green);margin-bottom:7px}
+.panel p{font-size:11px;color:#77847a;line-height:1.7}
+.guide-list{display:grid;gap:13px;margin-top:15px}
+.guide-item{display:flex;gap:12px;align-items:flex-start}
+.guide-icon{width:33px;height:33px;border-radius:10px;background:var(--mint);display:grid;place-items:center;flex-shrink:0}
+.guide-item strong{font-size:12px;color:#35483a;display:block;margin-bottom:3px}
+.guide-item span{font-size:10px;color:#829087;line-height:1.5}
+.notice{background:#fbf5e8;border:1px solid #eee1c4;border-radius:12px;padding:15px;margin-top:14px}
+.notice strong{color:#80642b;font-size:12px}
+.notice p{color:#897b5d;margin-top:5px}
+.page{display:none}
+.page.active{display:block}
+.content-page{background:white;border:1px solid var(--line);border-radius:16px;padding:25px;margin-top:15px}
+.content-page h2{font-family:'Playfair Display';color:var(--green);font-size:25px;margin-bottom:10px}
+.content-page p{color:#728076;font-size:13px;line-height:1.8;margin-bottom:12px}
+.guide-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.guide-card{background:#f5f8f2;border-radius:12px;padding:18px}
+.guide-card span{font-size:24px}
+.guide-card h3{font-family:'Playfair Display';color:var(--green);font-size:16px;margin:10px 0 6px}
+.guide-card p{font-size:11px}
+.modal-bg{position:fixed;inset:0;background:#10251dcc;z-index:50;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-bg.show{display:flex}
+.modal{background:white;border-radius:18px;max-width:570px;width:100%;max-height:90vh;overflow:auto;padding:26px;position:relative}
+.modal-close{position:absolute;right:17px;top:15px;border:0;background:#edf2eb;border-radius:50%;width:32px;height:32px;font-size:18px}
+.modal h2{font-family:'Playfair Display';font-size:27px;color:var(--green);margin:8px 0 3px}
+.modal .latin{margin-bottom:15px}
+.modal h4{font-size:12px;color:var(--green);margin:16px 0 5px}
+.modal p{font-size:12px;line-height:1.7;color:#6d7b70}
+footer{border-top:1px solid var(--line);margin-top:35px;padding:20px 0;color:#89948b;font-size:10px;display:flex;justify-content:space-between;gap:10px}
+.mobile-menu{display:none;border:0;background:var(--green);color:white;border-radius:8px;padding:9px 12px}
+@media(max-width:1100px){.plant-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+ .sidebar{transform:translateX(-100%);transition:.25s;width:260px}.sidebar.open{transform:translateX(0)}
+ .main{margin-left:0;width:100%;padding:20px 16px}
+ .mobile-menu{display:block}.topbar{align-items:flex-start}.topbar h1{font-size:25px}
+ .date-pill{display:none}.hero{padding:25px;min-height:190px}.hero h2{font-size:25px}.hero-art{font-size:65px;margin:0}
+ .plant-grid{grid-template-columns:1fr}.panel-grid{grid-template-columns:1fr}.guide-cards{grid-template-columns:1fr}
+ footer{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+ <div class="brand">
+  <div class="brand-icon">🌿</div>
+  <div><h2>Herbal Plant<br>World</h2><small>Nature's Wisdom</small></div>
+ </div>
+ <div class="nav-label">WORKSPACE</div>
+ <nav class="nav">
+  <button class="active" data-page="dashboard"><span class="nav-icon">▦</span> Dashboard</button>
+  <button data-page="plants"><span class="nav-icon">🌱</span> Plant Library</button>
+  <button data-page="favorites"><span class="nav-icon">♡</span> My Favourites</button>
+  <div class="nav-label">DISCOVER</div>
+  <button data-page="guide"><span class="nav-icon">☀</span> Growing Guide</button>
+  <button data-page="safety"><span class="nav-icon">✚</span> Safety & Awareness</button>
+  <button data-page="about"><span class="nav-icon">ⓘ</span> About Project</button>
+ </nav>
+ <div class="sidebar-bottom">
+  <strong>🌳 Grow with Nature</strong>
+  Explore plant knowledge, discover botanical names and learn responsible gardening.
+  <br><br>HERBAL PLANT WORLD · 2026
+ </div>
+</aside>
+
+<main class="main">
+ <header class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+   <button class="mobile-menu" id="menuBtn">☰</button>
+   <div><div class="eyebrow">HERBAL KNOWLEDGE PORTAL</div><h1 id="pageTitle">Dashboard Overview</h1></div>
+  </div>
+  <div class="top-right"><div class="date-pill" id="today"></div><div class="avatar">HW</div></div>
+ </header>
+
+ <section class="page active" id="dashboard">
+  <div class="hero">
+   <div class="hero-copy">
+    <div class="tag">✦ Discover the power of plants</div>
+    <h2>Explore Nature's<br>Living Pharmacy.</h2>
+    <p>A digital herbal plant encyclopedia. Discover plant knowledge, traditional uses, botanical details and simple growing tips.</p>
+    <button onclick="showPage('plants')">Explore Plant Library &nbsp; →</button>
+   </div>
+   <div class="hero-art">🌿</div>
+  </div>
+  <div class="stats">
+   <div class="stat"><div class="stat-top">Plants in Library <span class="stat-icon">🌱</span></div><strong id="totalPlants">30</strong><small>Explore our collection</small></div>
+   <div class="stat"><div class="stat-top">Plant Categories <span class="stat-icon">🍃</span></div><strong>05</strong><small>Browse by plant type</small></div>
+   <div class="stat"><div class="stat-top">Your Favourites <span class="stat-icon">♡</span></div><strong id="favCount">0</strong><small>Saved on this device</small></div>
+   <div class="stat"><div class="stat-top">Growing Tips <span class="stat-icon">☀</span></div><strong>06</strong><small>Learn basic plant care</small></div>
+  </div>
+  <div class="section-head"><div><h2>Featured Herbal Plants</h2><p>A selection from our botanical collection</p></div><button class="filter" onclick="showPage('plants')">View all plants →</button></div>
+  <div class="plant-grid" id="featuredGrid"></div>
+  <div class="panel-grid">
+   <div class="panel"><h3>🌱 Start Your Herbal Garden</h3><p>Small steps can help you build a healthy and beautiful home garden.</p>
+    <div class="guide-list">
+     <div class="guide-item"><div class="guide-icon">☀️</div><div><strong>Choose the right sunlight</strong><span>Check how much sunlight each plant needs before choosing its location.</span></div></div>
+     <div class="guide-item"><div class="guide-icon">💧</div><div><strong>Water thoughtfully</strong><span>Check soil moisture and avoid overwatering.</span></div></div>
+     <div class="guide-item"><div class="guide-icon">🪴</div><div><strong>Use suitable soil</strong><span>Choose well-draining soil and containers with drainage holes.</span></div></div>
+    </div>
+   </div>
+   <div class="panel"><h3>Important Awareness</h3><p>Herbal plants are part of traditional knowledge and biodiversity.</p>
+    <div class="notice"><strong>⚠ Educational information only</strong><p>Traditional uses do not establish medical effectiveness. Do not use plants as a substitute for professional diagnosis or treatment.</p></div>
+    <button class="filter" style="margin-top:13px" onclick="showPage('safety')">Read safety information →</button>
+   </div>
+  </div>
+ </section>
+
+ <section class="page" id="plants">
+  <div class="section-head"><div><h2>Explore Plant Library</h2><p>Search plants by common name, Telugu name or botanical name</p></div></div>
+  <div class="toolbar">
+   <div class="search"><span>⌕</span><input id="searchInput" placeholder="Search herbal plants..." autocomplete="off"></div>
+   <button class="filter active" data-filter="All">All Plants</button>
+   <button class="filter" data-filter="Medicinal">Medicinal</button>
+   <button class="filter" data-filter="Culinary">Culinary</button>
+   <button class="filter" data-filter="Aromatic">Aromatic</button>
+   <button class="filter" data-filter="Trees & Shrubs">Trees & Shrubs</button>
+  </div>
+  <div class="plant-grid" id="plantGrid"></div>
+ </section>
+
+ <section class="page" id="favorites">
+  <div class="section-head"><div><h2>My Favourite Plants</h2><p>Your saved plants are stored in this browser</p></div></div>
+  <div class="plant-grid" id="favoriteGrid"></div>
+ </section>
+
+ <section class="page" id="guide">
+  <div class="content-page">
+   <div class="eyebrow">GARDENING BASICS</div><h2>Growing Guide</h2>
+   <p>Growing herbal plants can be a rewarding way to learn about nature. These basic tips are a starting point; always check the needs of each individual plant.</p>
+   <div class="guide-cards">
+    <div class="guide-card"><span>☀️</span><h3>Sunlight</h3><p>Understand whether your plant prefers full sun, partial shade or indirect light. Place pots according to their needs.</p></div>
+    <div class="guide-card"><span>💧</span><h3>Watering</h3><p>Check the top layer of soil before watering. Different plants need different amounts of moisture.</p></div>
+    <div class="guide-card"><span>🪴</span><h3>Soil & Pots</h3><p>Use suitable potting mix and containers with drainage holes to help prevent waterlogging.</p></div>
+    <div class="guide-card"><span>🌾</span><h3>Plant Nutrition</h3><p>Use compost appropriately and avoid excessive fertiliser. Follow guidance for each plant.</p></div>
+    <div class="guide-card"><span>✂️</span><h3>Pruning</h3><p>Remove dead or damaged growth with clean tools when appropriate for the plant.</p></div>
+    <div class="guide-card"><span>🔍</span><h3>Plant Health</h3><p>Check leaves and stems regularly for pests, unusual spots or signs of stress.</p></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="page" id="safety">
+  <div class="content-page">
+   <div class="eyebrow">RESPONSIBLE PLANT KNOWLEDGE</div><h2>Safety & Awareness</h2>
+   <p>Natural does not always mean safe. Some plants can be toxic, cause allergic reactions or interact with medicines.</p>
+   <div class="notice"><strong>⚠ Important health notice</strong><p>This website is an educational mini project, not a medical guide. It does not diagnose, prevent or treat any disease. Consult a qualified healthcare professional before using herbal products for health purposes.</p></div>
+   <div class="guide-list">
+    <div class="guide-item"><div class="guide-icon">🚫</div><div><strong>Do not self-medicate</strong><span>Never replace prescribed medicines or medical care with herbal remedies without professional advice.</span></div></div>
+    <div class="guide-item"><div class="guide-icon">🌿</div><div><strong>Identify plants correctly</strong><span>Some plants look alike. Never eat or use a plant based only on an uncertain identification.</span></div></div>
+    <div class="guide-item"><div class="guide-icon">🤰</div><div><strong>Extra care for vulnerable groups</strong><span>Children, pregnant or breastfeeding people, and people taking medicines should seek professional advice before using herbal products.</span></div></div>
+    <div class="guide-item"><div class="guide-icon">🧴</div><div><strong>Be careful with concentrated extracts</strong><span>Essential oils and concentrated plant extracts can cause harm if swallowed or applied incorrectly.</span></div></div>
+    <div class="guide-item"><div class="guide-icon">📚</div><div><strong>Check reliable information</strong><span>Traditional use is not the same as proven medical effectiveness. Check reliable botanical and health references.</span></div></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="page" id="about">
+  <div class="content-page">
+   <div class="eyebrow">ABOUT THIS WEBSITE</div><h2>Herbal Plant World</h2>
+   <p>Herbal Plant World is an educational mini project designed to introduce visitors to a variety of plants, their botanical names, traditional associations and basic cultivation information.</p>
+   <div class="guide-cards">
+    <div class="guide-card"><span>🌱</span><h3>Our Aim</h3><p>To make introductory plant information easy to explore through a simple digital platform.</p></div>
+    <div class="guide-card"><span>📖</span><h3>What You Can Learn</h3><p>Common names, botanical names, plant categories, traditional uses and growing basics.</p></div>
+    <div class="guide-card"><span>🌍</span><h3>Our Message</h3><p>Encourage awareness of plant diversity, responsible gardening and nature conservation.</p></div>
+   </div>
+   <div class="notice"><strong>Project note</strong><p>Plant descriptions are introductory educational summaries. Traditional uses vary by region and should not be interpreted as medical recommendations.</p></div>
+  </div>
+ </section>
+
+ <footer><span>© 2026 Herbal Plant World · Educational Mini Project</span><span>Made with 🌿 for nature lovers</span></footer>
+</main>
+</div>
+
+<div class="modal-bg" id="modalBg">
+ <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+  <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+  <div class="eyebrow" id="modalCategory">PLANT PROFILE</div>
+  <h2 id="modalName"></h2><div class="latin" id="modalLatin"></div>
+  <p id="modalDescription"></p>
+  <h4>Traditional associations</h4><p id="modalUses"></p>
+  <h4>Growing information</h4><p id="modalGrowing"></p>
+  <div class="notice"><strong>Safety reminder</strong><p id="modalSafety"></p></div>
+ </div>
+</div>
+
+<script>
+const plants = [
+{name:"Tulsi",telugu:"తులసి",latin:"Ocimum tenuiflorum",category:"Medicinal",emoji:"🌿",description:"An aromatic herb widely grown in home gardens across India.",uses:"Traditionally valued in Indian household and cultural practices.",growing:"Generally grows well in warm conditions with sunlight and well-drained soil.",safety:"Do not assume it treats illness. Seek professional advice before using concentrated preparations."},
+{name:"Neem",telugu:"వేప",latin:"Azadirachta indica",category:"Trees & Shrubs",emoji:"🌳",description:"A well-known evergreen tree native to the Indian subcontinent.",uses:"Leaves, seeds and bark have a history of traditional uses.",growing:"A tree suited to warm climates and a sunny outdoor location.",safety:"Neem oil can be toxic if swallowed. Keep products away from children and pets."},
+{name:"Aloe Vera",telugu:"కలబంద",latin:"Aloe vera",category:"Medicinal",emoji:"🪴",description:"A succulent plant recognised by its thick, fleshy leaves.",uses:"The clear inner leaf gel has traditional topical uses.",growing:"Needs bright light, well-draining soil and limited watering.",safety:"Aloe latex is different from inner gel and can cause serious side effects if swallowed."},
+{name:"Turmeric",telugu:"పసుపు",latin:"Curcuma longa",category:"Culinary",emoji:"🌱",description:"A rhizome-producing plant known for its golden-yellow underground stem.",uses:"Widely used as a culinary spice and in traditional practices.",growing:"Prefers warm, humid conditions and rich, moist but well-drained soil.",safety:"Concentrated supplements may interact with medicines and are not suitable for everyone."},
+{name:"Ginger",telugu:"అల్లం",latin:"Zingiber officinale",category:"Culinary",emoji:"🌿",description:"A tropical plant cultivated for its aromatic underground rhizome.",uses:"Commonly used as a spice in food and traditional preparations.",growing:"Prefers warm conditions, partial shade and moist, well-drained soil.",safety:"Large amounts or supplements may cause side effects or interact with medicines."},
+{name:"Mint",telugu:"పుదీనా",latin:"Mentha spicata",category:"Aromatic",emoji:"🍃",description:"A fragrant leafy herb commonly grown in pots and gardens.",uses:"Popular in cooking, drinks and flavouring.",growing:"Grows well with regular moisture and partial to full sunlight.",safety:"Essential oils are concentrated and should not be swallowed or applied undiluted."},
+{name:"Ashwagandha",telugu:"అశ్వగంధ",latin:"Withania somnifera",category:"Medicinal",emoji:"🌿",description:"A small shrub used in several traditional systems of medicine.",uses:"Known for its role in traditional Ayurvedic preparations.",growing:"Needs warm weather and well-drained soil.",safety:"May cause side effects and interactions. Avoid during pregnancy unless specifically advised by a clinician."},
+{name:"Amla",telugu:"ఉసిరి",latin:"Phyllanthus emblica",category:"Trees & Shrubs",emoji:"🌳",description:"A small to medium-sized tree that produces greenish fruits.",uses:"The fruit is used in foods and traditional preparations.",growing:"Grows in warm climates and prefers a sunny position.",safety:"Food use differs from concentrated supplements. Check suitability if taking medicines."},
+{name:"Lemongrass",telugu:"నిమ్మ గడ్డి",latin:"Cymbopogon citratus",category:"Aromatic",emoji:"🌾",description:"A tall grass with a fresh lemon-like fragrance.",uses:"Used in cooking, teas and aromatic products.",growing:"Prefers full sun, warmth and well-drained soil.",safety:"Use essential oil cautiously; concentrated oils may irritate skin."},
+{name:"Curry Leaves",telugu:"కరివేపాకు",latin:"Murraya koenigii",category:"Culinary",emoji:"🍃",description:"A leafy tree whose aromatic leaves are popular in South Asian cuisine.",uses:"A familiar ingredient in seasoning and everyday cooking.",growing:"Needs warmth, sunlight and well-drained soil.",safety:"Wash leaves before food preparation and use correctly identified plants."},
+{name:"Brahmi",telugu:"బ్రాహ్మి",latin:"Bacopa monnieri",category:"Medicinal",emoji:"🌱",description:"A small creeping herb often found in wet and marshy habitats.",uses:"Has a history of use in traditional herbal preparations.",growing:"Prefers moist soil and can grow in sunny or partly shaded places.",safety:"Supplements can cause side effects and interact with medicines."},
+{name:"Rosemary",telugu:"రోజ్‌మేరీ",latin:"Salvia rosmarinus",category:"Aromatic",emoji:"🌿",description:"An evergreen aromatic shrub with narrow, fragrant leaves.",uses:"Popular as a culinary herb and garden plant.",growing:"Prefers full sun and well-drained soil; avoid waterlogging.",safety:"Concentrated rosemary oil is not equivalent to normal culinary use."},
+{name:"Lavender",telugu:"లావెండర్",latin:"Lavandula angustifolia",category:"Aromatic",emoji:"💜",description:"A fragrant flowering plant known for its purple flower spikes.",uses:"Used in gardens, fragrance products and decorative arrangements.",growing:"Needs plenty of sunlight and well-drained soil.",safety:"Essential oils may irritate skin and should not be swallowed."},
+{name:"Fenugreek",telugu:"మెంతులు",latin:"Trigonella foenum-graecum",category:"Culinary",emoji:"🌱",description:"A leafy annual herb whose leaves and seeds are used in food.",uses:"A common ingredient in spice blends and cooking.",growing:"Grows in cool to warm conditions with moderate watering.",safety:"May affect blood sugar and interact with some medicines."},
+{name:"Coriander",telugu:"కొత్తిమీర",latin:"Coriandrum sativum",category:"Culinary",emoji:"🍃",description:"A popular culinary herb grown for its leaves and seeds.",uses:"Leaves and seeds are widely used as flavouring ingredients.",growing:"Prefers sunlight and well-drained soil; avoid excessive heat.",safety:"Wash fresh leaves thoroughly before eating."},
+{name:"Garlic",telugu:"వెల్లుల్లి",latin:"Allium sativum",category:"Culinary",emoji:"🧄",description:"A bulb-forming plant widely cultivated as a food crop.",uses:"A common ingredient in cuisines around the world.",growing:"Needs a sunny position and loose, well-drained soil.",safety:"Large amounts or supplements may increase bleeding risk with some medicines."},
+{name:"Indian Borage",telugu:"దొడ్డపత్రి",latin:"Coleus amboinicus",category:"Medicinal",emoji:"🌿",description:"A succulent aromatic herb with thick, soft leaves.",uses:"Leaves have traditional household uses in some regions.",growing:"Grows well in warm weather, bright light and well-drained soil.",safety:"Traditional use is not proof of effectiveness; avoid unverified preparations."},
+{name:"Shatavari",telugu:"శతావరి",latin:"Asparagus racemosus",category:"Medicinal",emoji:"🌱",description:"A climbing or scrambling plant with fine foliage and tuberous roots.",uses:"A plant recognised in traditional Ayurvedic literature.",growing:"Prefers warm conditions and well-drained soil.",safety:"Safety information is limited for some preparations; seek professional advice."},
+{name:"Arjuna",telugu:"మద్ది",latin:"Terminalia arjuna",category:"Trees & Shrubs",emoji:"🌳",description:"A large tree often found near rivers and watercourses in South Asia.",uses:"Its bark has a history of traditional use.",growing:"Needs space to grow and is suited to warm outdoor conditions.",safety:"Do not use bark preparations for heart conditions without medical advice."},
+{name:"Giloy",telugu:"తిప్పతీగ",latin:"Tinospora cordifolia",category:"Medicinal",emoji:"🌿",description:"A climbing vine known in traditional Indian herbal systems.",uses:"Traditionally used in various herbal preparations.",growing:"A climbing plant that needs support and warm growing conditions.",safety:"Giloy products have been associated with liver injury. Avoid self-medication."},
+{name:"Sage",telugu:"సేజ్",latin:"Salvia officinalis",category:"Aromatic",emoji:"🍃",description:"An aromatic perennial herb with soft grey-green leaves.",uses:"Used as a culinary herb and ornamental garden plant.",growing:"Prefers full sun and well-drained soil.",safety:"Large or concentrated doses may be unsafe; avoid medicinal use without advice."},
+{name:"Thyme",telugu:"థైమ్",latin:"Thymus vulgaris",category:"Aromatic",emoji:"🌿",description:"A small woody herb with tiny fragrant leaves.",uses:"Commonly used in cooking and herb gardens.",growing:"Needs sunlight and soil that drains well.",safety:"Essential oil is concentrated and can irritate skin."},
+{name:"Oregano",telugu:"ఒరేగానో",latin:"Origanum vulgare",category:"Culinary",emoji:"🌱",description:"A fragrant perennial herb used in many Mediterranean dishes.",uses:"Its leaves are used fresh or dried as a seasoning.",growing:"Grows well in sunny locations with well-drained soil.",safety:"Concentrated oil is not the same as culinary oregano."},
+{name:"Hibiscus",telugu:"మందారం",latin:"Hibiscus rosa-sinensis",category:"Trees & Shrubs",emoji:"🌺",description:"A flowering shrub with large, colourful blooms.",uses:"Popular as an ornamental plant; some species are used in traditional practices.",growing:"Prefers warmth, sunlight and regular moisture.",safety:"Do not assume all hibiscus species or preparations are interchangeable."},
+{name:"Moringa",telugu:"మునగ",latin:"Moringa oleifera",category:"Trees & Shrubs",emoji:"🌳",description:"A fast-growing tree with edible leaves and long seed pods.",uses:"Leaves and pods are used as food in many regions.",growing:"Needs sunlight and well-drained soil; tolerates dry conditions once established.",safety:"Food use differs from concentrated extracts and supplements."},
+{name:"Bael",telugu:"మారేడు",latin:"Aegle marmelos",category:"Trees & Shrubs",emoji:"🌳",description:"A fruit-bearing tree native to the Indian subcontinent.",uses:"The fruit has culinary and traditional significance.",growing:"A warm-climate tree that needs outdoor space and sunlight.",safety:"Use correctly identified fruit and avoid unverified medicinal preparations."},
+{name:"Gotu Kola",telugu:"సరస్వతి ఆకు",latin:"Centella asiatica",category:"Medicinal",emoji:"🍃",description:"A creeping herb with rounded leaves found in moist environments.",uses:"Known in several traditional systems of herbal knowledge.",growing:"Prefers moist soil and partial shade to sunlight.",safety:"Concentrated products may have side effects; consult a healthcare professional."},
+{name:"Vetiver",telugu:"వట్టివేరు",latin:"Chrysopogon zizanioides",category:"Aromatic",emoji:"🌾",description:"A perennial grass with a dense, deep root system.",uses:"Roots are valued for their fragrance and in traditional cooling products.",growing:"Grows in warm climates and can tolerate a range of soil conditions.",safety:"Use clean, correctly identified plant material."},
+{name:"Patchouli",telugu:"పచ్చౌలి",latin:"Pogostemon cablin",category:"Aromatic",emoji:"🍃",description:"A fragrant tropical herb cultivated for its aromatic leaves.",uses:"Its essential oil is used in perfumery and fragrance products.",growing:"Prefers warm, humid conditions and partial shade.",safety:"Essential oil should not be swallowed and may irritate skin."},
+{name:"Calendula",telugu:"క్యాలెండులా",latin:"Calendula officinalis",category:"Aromatic",emoji:"🌼",description:"A flowering herb with bright yellow or orange blooms.",uses:"Grown as an ornamental plant and used in some topical products.",growing:"Prefers sunlight and moderately fertile, well-drained soil.",safety:"May cause allergic reactions, especially in people sensitive to related flowers."}
+];
+
+const imagePool = [
+"https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=700",
+"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=700",
+"https://images.unsplash.com/photo-1497250681960-ef046c08a56e?w=700",
+"https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=700",
+"https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=700",
+"https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=700"
+];
+let currentFilter="All";
+let searchTerm="";
+let favorites=JSON.parse(localStorage.getItem("herbalFavorites")||"[]");
+
+function cardHTML(p){
+ const saved=favorites.includes(p.name);
+ const idx=plants.indexOf(p);
+ const img=imagePool[idx%imagePool.length];
+ return `<article class="plant-card">
+  <div class="plant-photo"><div class="plant-symbol">${p.emoji}</div>
+   <img src="${img}" alt="Botanical greenery" loading="lazy" onerror="this.classList.add('bad')">
+   <span class="plant-category">${p.category}</span>
+   <button class="fav ${saved?'saved':''}" onclick="toggleFavorite('${p.name}')" aria-label="Save favourite">${saved?'♥':'♡'}</button>
+  </div>
+  <div class="plant-info">
+   <h3>${p.name}</h3><div class="telugu">${p.telugu}</div><div class="latin">${p.latin}</div>
+   <p class="plant-desc">${p.description}</p>
+   <div class="card-bottom"><span>Plant profile</span><button onclick="openPlant('${p.name}')">Explore details →</button></div>
+  </div>
+ </article>`;
+}
+function renderGrid(target,list){
+ const el=document.getElementById(target);
+ el.innerHTML=list.length?list.map(cardHTML).join(""):`<div class="empty"><div>🌱</div><strong>No plants found</strong><p>Try another search or category.</p></div>`;
+}
+function filteredPlants(){
+ return plants.filter(p=>{
+  const matchesCategory=currentFilter==="All"||p.category===currentFilter;
+  const term=searchTerm.toLowerCase();
+  const matchesSearch=[p.name,p.telugu,p.latin,p.category].some(v=>v.toLowerCase().includes(term));
+  return matchesCategory&&matchesSearch;
+ });
+}
+function refresh(){
+ renderGrid("plantGrid",filteredPlants());
+ renderGrid("featuredGrid",plants.slice(0,3));
+ renderGrid("favoriteGrid",plants.filter(p=>favorites.includes(p.name)));
+ document.getElementById("totalPlants").textContent=plants.length;
+ document.getElementById("favCount").textContent=favorites.length;
+}
+function toggleFavorite(name){
+ favorites=favorites.includes(name)?favorites.filter(x=>x!==name):[...favorites,name];
+ localStorage.setItem("herbalFavorites",JSON.stringify(favorites));
+ refresh();
+}
+function openPlant(name){
+ const p=plants.find(x=>x.name===name);if(!p)return;
+ document.getElementById("modalCategory").textContent=p.category.toUpperCase()+" · PLANT PROFILE";
+ document.getElementById("modalName").textContent=p.name+" "+p.emoji;
+ document.getElementById("modalLatin").textContent=p.telugu+"  |  "+p.latin;
+ document.getElementById("modalDescription").textContent=p.description;
+ document.getElementById("modalUses").textContent=p.uses;
+ document.getElementById("modalGrowing").textContent=p.growing;
+ document.getElementById("modalSafety").textContent=p.safety;
+ document.getElementById("modalBg").classList.add("show");
+}
+function showPage(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(page).classList.add("active");
+ document.querySelectorAll(".nav button[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ const titles={dashboard:"Dashboard Overview",plants:"Plant Library",favorites:"My Favourites",guide:"Growing Guide",safety:"Safety & Awareness",about:"About Project"};
+ document.getElementById("pageTitle").textContent=titles[page];
+ document.getElementById("sidebar").classList.remove("open");
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(page==="favorites")renderGrid("favoriteGrid",plants.filter(p=>favorites.includes(p.name)));
+}
+document.querySelectorAll(".nav button[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+document.querySelectorAll(".filter[data-filter]").forEach(b=>b.addEventListener("click",()=>{
+ currentFilter=b.dataset.filter;
+ document.querySelectorAll(".filter[data-filter]").forEach(x=>x.classList.toggle("active",x===b));
+ renderGrid("plantGrid",filteredPlants());
+}));
+document.getElementById("searchInput").addEventListener("input",e=>{
+ searchTerm=e.target.value;renderGrid("plantGrid",filteredPlants());
+});
+document.getElementById("modalClose").addEventListener("click",()=>document.getElementById("modalBg").classList.remove("show"));
+document.getElementById("modalBg").addEventListener("click",e=>{if(e.target.id==="modalBg")e.currentTarget.classList.remove("show")});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("modalBg").classList.remove("show")});
+document.getElementById("menuBtn").addEventListener("click",()=>document.getElementById("sidebar").classList.toggle("open"));
+document.getElementById("today").textContent=new Date().toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
+refresh();
+</script>
+</body>
+</html>
